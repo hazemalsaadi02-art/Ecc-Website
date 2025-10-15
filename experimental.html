@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TURBO ISC-DIP</title>
+  <style>
+    .mission-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  background-color: rgba(22, 44, 91, 0.85);
+  padding: 1.5rem;
+  border-radius: 15px;
+  margin-top: 1.5rem;
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+  flex-wrap: wrap;
+}
+
+.mission-text {
+  flex: 1 1 50%;
+  min-width: 300px;
+}
+
+.mission-video {
+  flex: 1 1 45%;
+  min-width: 280px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(244, 197, 66, 0.3);
+}
+
+.mission-video iframe {
+  width: 100%;
+  height: 280px;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.mission-video iframe:hover {
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .mission-container {
+    flex-direction: column;
+  }
+  .mission-video iframe {
+    height: 220px;
+  }
+}
+footer {
+  background-color: #102a54;
+  border-top: 2px solid #f4c542;
+  padding: 1rem 2rem;
+  color: #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.footer-social-buttons {
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  z-index: 10;
+}
+
+.icons-social-media {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  padding: 5px;
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.icons-social-media path {
+  fill: #f4c542; 
+}
+
+.icons-social-media:hover {
+  transform: translateY(-5px);
+}
+
+#instagram:hover {
+  background-color: rgb(221, 157, 189);
+}
+
+#youtube:hover {
+  background-color: rgb(241, 96, 96);
+}
+
+
+
+.footer-content {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-logo {
+  height: 50px;
+  width: auto;
+  border-radius: 10px;
+}
+
+.footer-right a {
+  margin-left: 1rem;
+}
+.footer-icon-link img {
+  width: 32px;
+  height: 32px;
+  transition: transform 0.3s, filter 0.3s;
+  filter: brightness(0) saturate(100%) invert(84%) sepia(67%) saturate(626%) hue-rotate(1deg) brightness(101%) contrast(100%);
+}
+
+.footer-icon-link img:hover {
+  transform: scale(1.1);
+  filter: brightness(0) saturate(100%) invert(84%) sepia(67%) saturate(626%) hue-rotate(1deg) brightness(120%) contrast(100%);
+}
+
+.footer-icon {
+  width: 32px;
+  height: 32px;
+  transition: transform 0.3s, filter 0.3s;
+  filter: invert(0) sepia(1) saturate(5) hue-rotate(40deg); 
+}
+
+.footer-icon:hover {
+  transform: scale(1.1);
+  filter: invert(0) sepia(1) saturate(5) hue-rotate(40deg) brightness(1.2);
+}
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+ body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top left, #111827 0%, #0b1324 80%);
+  color: #e5e7eb;
+}
+
+header {
+  background: rgba(15, 23, 42, 0.85);
+  border-bottom: 2px solid #f4c542;
+}
+
+
+    header {
+  background: rgba(16, 42, 84, 0.95);
+  padding: 0.8rem 1.5rem;  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 3px solid #f4c542;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+}
+
+
+    header h2 {
+      font-size: 1.5rem;
+      color: #f4c542;
+      letter-spacing: 1px;
+    }
+
+    nav a {
+      color: #f4c542;
+      text-decoration: none;
+      margin-left: 2rem;
+      font-weight: 600;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: #f4c542;
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+    }
+
+    main {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+      text-align: center;
+      animation: fadeIn 0.5s ease;
+    }
+
+#tiktok:hover {
+  background-color: #69C9D0; 
+}
+
+
+    section {
+      display: none;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+
+    section.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h1, h2 {
+      color: #f4c542;
+    }
+
+    .mission, .goals, .news-section, form, .crew-container {
+      background-color: rgba(22, 44, 91, 0.85);
+      padding: 1.5rem;
+      border-radius: 15px;
+      margin-top: 1.5rem;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+      transition: transform 0.3s;
+    }
+
+    .mission:hover, .goals:hover, .news-section:hover {
+      transform: translateY(-4px);
+    }
+
+    ul {
+      text-align: left;
+      display: inline-block;
+      margin-top: 1rem;
+    }
+
+    ul li {
+      margin: 0.5rem 0;
+      font-size: 1rem;
+    }
+
+    .crew-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .member-card {
+      background-color: #0f224a;
+      border-radius: 10px;
+      width: 200px;
+      padding: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+.button {
+  height: 38px;
+  width: 140px; 
+  position: relative;
+  background-color: transparent;
+  cursor: pointer;
+  border: 1.5px solid #f4c542; 
+  overflow: hidden;
+  border-radius: 20px;
+  color: #f4c542;
+  font-size: 0.85rem;
+  transition: all 0.4s ease-in-out;
+}
+
+footer {
+  position: relative;
+}
+
+.footer-social-buttons {
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  bottom: 15px;    /* distance from footer bottom */
+  right: 20px;     /* distance from footer right */
+}
+
+.icons-social-media {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  padding: 5px;
+}
+
+.icons-social-media:hover {
+  transform: translateY(-5px);
+}
+
+#instagram:hover {
+  background-color: rgb(221, 157, 189);
+}
+
+#youtube:hover {
+  background-color: rgb(241, 96, 96);
+}
+
+
+
+.icons-social-media path {
+  fill: #f4c542; 
+}
+.icons-social-media path {
+  fill: #f4c542; 
+}
+.footer-social-buttons {
+  display: flex;
+  gap: 10px;
+  position: absolute;  
+  bottom: 15px;
+  right: 20px;
+  z-index: 10;          
+}
+
+.button {
+  width: auto;              
+  min-width: 140px;         
+  padding: 0 20px;          
+  height: 38px;            
+  border-radius: 20px;
+  border: 1.5px solid #f4c542;
+  font-size: 0.85rem;
+}
+.btn-txt {
+  letter-spacing: 1px;  
+}
+.button {
+  box-sizing: border-box;
+}
+.button {
+  max-width: 200px;  
+  width: auto;       
+}
+
+.btn-txt {
+  z-index: 1;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.type1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: all 0.4s ease-in-out;
+  background-color: #f4c542;
+  border-radius: 30px;
+  visibility: hidden;
+  height: 10px;
+  width: 10px;
+  z-index: -1;
+}
+nav {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.button:hover {
+  box-shadow: 1px 1px 20px rgba(244, 197, 66, 0.6);
+  color: #0b1a33;
+  border: none;
+}
+
+.type1:hover::after {
+  visibility: visible;
+  transform: scale(100) translateX(2px);
+}
+
+    .member-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 20px rgba(244, 197, 66, 0.4);
+    }
+
+    .member-card img {
+      width: 100%;
+      border-radius: 8px;
+      height: 160px;
+      object-fit: cover;
+    }
+
+    .member-card h4 {
+      color: #f4c542;
+      margin: 0.5rem 0 0.2rem;
+    }
+
+.hero {
+  height: 100vh;
+  width: 100%;
+  background: url('blob:https://web.whatsapp.com/d2c68496-cfbc-4c4e-9ec1-111556ffe94a') center/cover no-repeat; /*image goes here plz*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(11,26,51,0.1), rgba(11,26,51,1));
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  animation: fadeInUp 1s ease;
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  color: #f4c542;
+  text-shadow: 0 0 25px rgba(244,197,66,0.6);
+  margin-bottom: 0.8rem;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  color: #d8d8d8;
+  margin-bottom: 2rem;
+}
+
+.hero-btn {
+  background: #f4c542;
+  color: #0b1a33;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  box-shadow: 0 0 20px rgba(244,197,66,0.4);
+  text-decoration: none;
+}
+
+.hero-btn:hover {
+  background: #ffe169;
+  transform: translateY(-3px);
+  box-shadow: 0 0 25px rgba(244,197,66,0.6);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      max-width: 500px;
+      margin: 2rem auto;
+    }
+
+    input[type="email"] {
+      padding: 0.8rem;
+      width: 80%;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #f4c542;
+      border: none;
+      padding: 0.9rem 1.7rem;
+      border-radius: 8px;
+      color: #0b1a33;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ffe169;
+      transform: scale(1.05);
+      box-shadow: 0 0 12px #f4c542;
+    }
+
+    footer {
+      background-color: #102a54;
+      color: #ccc;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      margin-top: 3rem;
+      border-top: 2px solid #f4c542;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+  <h2>TURBO ISC-DIP</h2>
+  <nav>
+  <button class="button type1" onclick="showTab('about')">
+    <span class="btn-txt">About</span>
+  </button>
+  <button class="button type1" onclick="showTab('crew')">
+    <span class="btn-txt">Crew</span>
+  </button>
+  <button class="button type1" onclick="showTab('news')">
+    <span class="btn-txt">News</span>
+  </button>
+  <button class="button type1" onclick="showTab('newsletter')">
+    <span class="btn-txt">Newsletter</span>
+  </button>
+</nav>
+
+
+</header>
+
+<!--hero-->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <h1>TURBO ISC-DIP</h1>
+    <p>Embodying the spirit of creativity, collaboration, and sustainability.</p>
+
+<button class="hero-btn" id="heroExplore" aria-controls="about">Explore Our Mission</button>
+
+  </div>
+</section>
+
+
+  <main>
+    <!--ABOUTTAB-->
+<section id="about" class="active">
+  <h1>Overview</h1>
+  <p>
+    We are the <strong>ISC-DIP Turbo Electric Car Team</strong> - a passionate group of students
+    driven by curiosity, innovation, and sustainability. We aim to design and build the most efficient
+    electric kart that pushes the limits of creativity and engineering.
+  </p>
+
+  <div class="mission-container">
+    <div class="mission-text">
+      <h2>Our Mission</h2>
+      <p>
+        When we were chosen to represent ISC-DIP at the prestigious <strong>UAE National Electric Vehicle Grand Prix (EVGP)</strong>,
+        an event that challenges students across the globe to engineer, innovate, and compete with fully electric karts,
+        it became more than a competition, it became a mission. We aim to embody the spirit of creativity, collaboration,
+        and sustainability, driving toward victory and representing the passion and dedication of the Turbo Electric Car Team.
+      </p>
+    </div>
+
+    <div class="mission-wideo">
+      <iframe 
+        width="100%" 
+        height="100%" 
+        src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+        title="Our Mission Video"
+        frameborder="0" 
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <div class="goals">
+    <h2>Our Goals</h2>
+    <ul>
+      <li>goal</li>
+      <li>goal</li>
+      <li>goal</li>
+      <li>goal</li>
+      <li>Bring home the EVGP national title</li>
+    </ul>
+  </div>
+</section>
+
+
+    <!--CREWTAB-->
+    <section id="crew">
+      <h1>Meet Our Crew</h1>
+      <p>Get to know the people who power the Turbo Electric Car Team!</p>
+      <div class="crew-container">
+        <div class="member-profile">
+          <img src="https://via.placeholder.com/200x160" alt="Member">
+          <h4>Team Leader</h4>
+          <p>Project Coordination</p>
+        </div>
+        <div class="member-profile">
+          <img src="https://via.placeholder.com/200x160" alt="Member">
+          <h4>Design Lead</h4>
+          <p>Decor</p>
+        </div>
+        <div class="member-card">
+          <img src="https://via.placeholder.com/200x160" alt="Member">
+          <h4>Safety</h4>
+          <p>Circuits</p>
+        </div>
+        <div class="member-profile">
+          <img src="https://via.placeholder.com/200x160" alt="Member">
+          <h4>Marketing & Media</h4>
+          <p>Outreach and Sponsorship</p>
+        </div>
+      </div>
+    </section>
+
+    <!--NEWSTAB-->
+    <section id="news">
+      <h1>Latest News & Updates</h1>
+      <div class="news-section">
+        <h3>News</h3>
+        <p>Nwws</p>
+      </div>
+      <div class="news-section">
+        <h3>More news</h3>
+        <p>newsswsws</p>
+      </div>
+    </section>
+
+    <!--NEWSLETTERTAB-->
+    <section id="newsletter">
+      <h1>Join Our Newsletter</h1>
+      <p>Subscribe to receive the latest updates, progress reports, and competition news from Turbo!</p>
+      <form onsubmit="subscribe(event)">
+        <input type="email" id="email" placeholder="Enter your email" required />
+        <button type="submit">Subscribe</button>
+        <p id="message" style="color: #f4c542; font-weight: 500;"></p>
+      </form>
+    </section>
+  </main>
+
+ <footer>
+  <div class="footer-content">
+    <div class="footer-left">
+      <img src="turbo-logo.png" alt="Turbo Logo" class="footer-logo" />
+      <p>ISC-DIP Turbo Electric Car Club / Brought to you by the Programming Team</p>
+    </div>
+    <div class="footer-right">
+      <div class="footer-social-buttons">
+        <!--Instagram-->
+        <a href="https://www.instagram.com/instagoeshere" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="icons-social-media" id="instagram">
+            <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path>
+          </svg>
+        </a>
+
+        <!--YouTube-->
+        <a href="https://www.youtube.com/ytlinkgoeshere" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="icons-social-media" id="youtube">
+            <path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"></path>
+          </svg>
+        </a>
+
+      
+       <!--TikTok-->
+<a href="https://www.tiktok.com/@yourprofile" target="_blank">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="icons-social-media" id="tiktok">
+    <path d="M157.91 0v86.86a63.23 63.23 0 0 1-63.22-1.58v64.32a63.22 63.22 0 1 0 63.22-149.6z"/>
+  </svg>
+</a>
+
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script>
+  const hero = document.querySelector('.hero');
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const fadeEnd = 400;
+    const opacity = Math.max(0, 1 - scrollY / fadeEnd);
+    hero.style.opacity = opacity;
+    hero.style.transform = `scale(${1 + scrollY / 3000}) translateY(${scrollY / 4}px)`;
+  });
+</script>
+
+  <script>
+    function showTab(tabId) {
+      document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+    }
+
+    function subscribe(event) {
+      event.preventDefault();
+      const email = document.getElementById('email').value;
+      const msg = document.getElementById('message');
+      msg.textContent = `Thanks for subscribing, ${email} `;
+      document.getElementById('email').value = '';
+    }
+  </script>
+
+  <script>
+  document.getElementById('heroExplore').addEventListener('click', function (e) {
+
+    if (typeof showTab === 'function') showTab('about');
+
+    const target = document.getElementById('about');
+    if (!target) return;
+
+    
+    const header = document.querySelector('header');
+    const headerHeight = header ? header.getBoundingClientRect().height : 0;
+
+    
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const top = window.scrollY + target.getBoundingClientRect().top - headerHeight - 12;
+        window.scrollTo({ top, behavior: 'smooth' });
+      });
+    });
+  });
+</script>
+<script>
+function showTab(tabId) {
+  
+  document.querySelectorAll('main section').forEach(s => s.classList.remove('active'));
+  
+  
+  const target = document.getElementById(tabId);
+  if (target) target.classList.add('active');
+
+  
+  const hero = document.getElementById('hero');
+  if (hero) {
+    if (tabId === 'about') {
+      hero.style.display = 'flex'; 
+    } else {
+      hero.style.display = 'none'; 
+    }
+  }
+}
+</script>
+
+
+
+</body>
+</html>
