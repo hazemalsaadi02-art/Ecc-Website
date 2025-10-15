@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TURBO ISC-DIP</title>
+  <title>turbo.net</title>
   <style>
     .mission-container {
   display: flex;
@@ -16,6 +19,24 @@
   margin-top: 1.5rem;
   box-shadow: 0 0 15px rgba(0,0,0,0.4);
   flex-wrap: wrap;
+}
+#backToTopBtn {
+  position: static;
+  display: flex;
+  margin: 40px auto;
+  color: rgb(255, 0, 0); 
+  background-color: #242139; 
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#backToTopBtn:hover {
+  background-color: rgba(22, 44, 91, 0.85);
+  color: #f4c542; 
 }
 
 .mission-text {
@@ -95,26 +116,37 @@ footer {
 }
 
 
-
 .footer-content {
-  width: 100%;
-  max-width: 1000px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
+  gap: 10px;
+  text-align: center;
+}
+
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .footer-left {
   display: flex;
   align-items: center;
-  gap: 1rem;
+}
+.footer-left p {
+  margin: 0;
+  transform: translateY(2px); 
 }
 
 .footer-logo {
-  height: 50px;
+  height: 60px;          
   width: auto;
-  border-radius: 10px;
+  border-radius: 12px;
+  object-fit: contain;
+  box-shadow: 0 0 10px rgba(244, 197, 66, 0.3);  
 }
 
 .footer-right a {
@@ -143,22 +175,22 @@ footer {
   transform: scale(1.1);
   filter: invert(0) sepia(1) saturate(5) hue-rotate(40deg) brightness(1.2);
 }
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+    
 
  body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   background: radial-gradient(circle at top left, #111827 0%, #0b1324 80%);
   color: #e5e7eb;
 }
 
 header {
-  background: rgba(15, 23, 42, 0.85);
+  background: rgba(16, 42, 84, 0.95);
   border-bottom: 2px solid #f4c542;
 }
 
-
-    header {
+header {
   background: rgba(16, 42, 84, 0.95);
   padding: 0.8rem 1.5rem;  
   display: flex;
@@ -169,15 +201,31 @@ header {
   top: 0;
   z-index: 10;
   backdrop-filter: blur(10px);
+  transition: all 0.3s ease; 
 }
 
 
-    header h2 {
-      font-size: 1.5rem;
-      color: #f4c542;
-      letter-spacing: 1px;
-    }
+header.shrink {
+  padding: 0.4rem 1.5rem;  
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
 
+header h2 {
+  font-size: 1.5rem;
+  transition: font-size 0.3s ease;
+}
+
+header.shrink h2 {
+  font-size: 1.2rem; 
+}
+.hero {
+  margin-top: 0;
+  transition: margin-top 0.3s ease;
+}
+
+header.shrink + .hero {
+  margin-top: 50px;
+}
     nav a {
       color: #f4c542;
       text-decoration: none;
@@ -201,6 +249,11 @@ header {
     nav a:hover::after {
       width: 100%;
     }
+section {
+  margin: 80px auto;
+  max-width: 1000px;
+  padding: 40px 20px;
+}
 
     nav a:hover {
       color: #ffffff;
@@ -241,7 +294,7 @@ header {
       padding: 1.5rem;
       border-radius: 15px;
       margin-top: 1.5rem;
-      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+      box-shadow: 0 0 15px rgba(22,44,91,0.85);
       transition: transform 0.3s;
     }
 
@@ -291,6 +344,36 @@ header {
   font-size: 0.85rem;
   transition: all 0.4s ease-in-out;
 }
+footer {
+  font-family: 'Roboto', sans-serif;
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #f4c542;
+}
+.mission, .goals {
+  background: #0f2042; 
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mission:hover, .goals:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(244, 197, 66, 0.2);
+}
+
+p {
+  font-weight: 400;
+  line-height: 1.7;
+  letter-spacing: 0.2px;
+}
+
+footer p {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
 
 footer {
   position: relative;
@@ -300,8 +383,8 @@ footer {
   display: flex;
   gap: 10px;
   position: absolute;
-  bottom: 15px;    /* distance from footer bottom */
-  right: 20px;     /* distance from footer right */
+  bottom: 15px;    /*distance from footer bottom*/
+  right: 20px;     /*distance from footer right*/
 }
 
 .icons-social-media {
@@ -382,9 +465,11 @@ footer {
   z-index: -1;
 }
 nav {
-  display: flex;
-  gap: 0.8rem;
-  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  backdrop-filter: blur(6px);
 }
 
 .button:hover {
@@ -418,7 +503,8 @@ nav {
 .hero {
   height: 100vh;
   width: 100%;
-  background: url('blob:https://web.whatsapp.com/d2c68496-cfbc-4c4e-9ec1-111556ffe94a') center/cover no-repeat; /*image goes here plz*/
+  background-color: #0e1420;
+  /*background: url('c:\Users\ARSHAM\Downloads\plzwork.png') center/cover no-repeat; image goes here plz*/
   display: flex;
   align-items: center;
   justify-content: center;
@@ -453,6 +539,15 @@ nav {
   font-size: 1.2rem;
   color: #d8d8d8;
   margin-bottom: 2rem;
+}
+
+.hero {
+  margin-top: 80px; 
+  transition: margin-top 0.3s ease;
+}
+
+header.shrink + .hero {
+  margin-top: 50px; 
 }
 
 .hero-btn {
@@ -532,6 +627,28 @@ html {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    
+
+#backToTopBtn:hover {
+  color: black;
+}
+
+
+#backToTopBtn:hover::before {
+  background: #f4c542;
+}
+
+   #backToTopBtn {
+  position: static; 
+  display: flex;
+  margin: 40px auto; 
+  color: #f4c542;
+}
+ button .clone > * {
+  opacity: 0; 
+  transform: translateY(60px);
+}
+
   </style>
 </head>
 
@@ -589,7 +706,7 @@ html {
       </p>
     </div>
 
-    <div class="mission-wideo">
+    <div class="mission-video">
       <iframe 
         width="100%" 
         height="100%" 
@@ -619,27 +736,28 @@ html {
       <h1>Meet Our Crew</h1>
       <p>Get to know the people who power the Turbo Electric Car Team!</p>
       <div class="crew-container">
-        <div class="member-profile">
-          <img src="https://via.placeholder.com/200x160" alt="Member">
-          <h4>Team Leader</h4>
-          <p>Project Coordination</p>
-        </div>
-        <div class="member-profile">
-          <img src="https://via.placeholder.com/200x160" alt="Member">
-          <h4>Design Lead</h4>
-          <p>Decor</p>
-        </div>
-        <div class="member-card">
-          <img src="https://via.placeholder.com/200x160" alt="Member">
-          <h4>Safety</h4>
-          <p>Circuits</p>
-        </div>
-        <div class="member-profile">
-          <img src="https://via.placeholder.com/200x160" alt="Member">
-          <h4>Marketing & Media</h4>
-          <p>Outreach and Sponsorship</p>
-        </div>
-      </div>
+  <div class="member-card">
+    <img src="https://via.placeholder.com/200x160" alt="Member">
+    <h4>Team Leader</h4>
+    <p>Project Coordination</p>
+  </div>
+  <div class="member-card">
+    <img src="https://via.placeholder.com/200x160" alt="Member">
+    <h4>Design Lead</h4>
+    <p>Decor</p>
+  </div>
+  <div class="member-card">
+    <img src="https://via.placeholder.com/200x160" alt="Member">
+    <h4>Safety</h4>
+    <p>Circuits</p>
+  </div>
+  <div class="member-card">
+    <img src="https://via.placeholder.com/200x160" alt="Member">
+    <h4>Marketing & Media</h4>
+    <p>Outreach and Sponsorship</p>
+  </div>
+</div>
+
     </section>
 
     <!--NEWSTAB-->
@@ -667,10 +785,41 @@ html {
     </section>
   </main>
 
+  <!-- Back to Top Button -->
+<div class="back-to-top-container">
+  <button id="backToTopBtn" title="Back to top">
+    <div class="text">
+      <span>Back</span>
+      <span>to</span>
+      <span>top</span>
+    </div>
+    <div class="clone">
+      <span>Back</span>
+      <span>to</span>
+      <span>top</span>
+    </div>
+    <svg
+      stroke-width="2"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      width="20px"
+    >
+      <path
+        d="M14 5l7 7m0 0l-7 7m7-7H3"
+        stroke-linejoin="round"
+        stroke-linecap="round"
+      ></path>
+    </svg>
+  </button>
+</div>
+
  <footer>
   <div class="footer-content">
     <div class="footer-left">
-      <img src="turbo-logo.png" alt="Turbo Logo" class="footer-logo" />
+     <img src="image_2025-10-15_214344709-removebg-preview.png" alt="Turbo Logo" class="footer-logo" />
+
       <p>ISC-DIP Turbo Electric Car Club / Brought to you by the Programming Team</p>
     </div>
     <div class="footer-right">
@@ -693,35 +842,18 @@ html {
        <!--TikTok-->
 <a href="https://www.tiktok.com/@yourprofile" target="_blank">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="icons-social-media" id="tiktok">
-    <path d="M157.91 0v86.86a63.23 63.23 0 0 1-63.22-1.58v64.32a63.22 63.22 0 1 0 63.22-149.6z"/>
+    <path d="M161.1 0h36.9c2.2 29.5 21.2 52.6 50.1 54.3v39.7c-17.8 1.7-33.6-4.5-50-13.4v72.8c0 59.5-43.3 102.6-105.9 102.6-25.4 0-48.9-7.4-68.2-21.5l14.4-42.4c15.2 10.3 32.1 16.3 50.2 16.3 29.2 0 49.4-17.8 49.4-51.2V85.1c0-0.9 0-1.7-0.1-2.6-10.7 2.6-21.7 3.9-33.1 3.9-11.3 0-22.2-1.4-32.8-4.1V38.2c12.8 2.1 25.6 3.2 38.4 3.2 11.4 0 22.6-1.1 33.6-3.3V0z" />
   </svg>
 </a>
+
 
       </div>
     </div>
   </div>
 </footer>
 
-
-
-
-<script>
-  const hero = document.querySelector('.hero');
-  window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    const fadeEnd = 400;
-    const opacity = Math.max(0, 1 - scrollY / fadeEnd);
-    hero.style.opacity = opacity;
-    hero.style.transform = `scale(${1 + scrollY / 3000}) translateY(${scrollY / 4}px)`;
-  });
-</script>
-
   <script>
-    function showTab(tabId) {
-      document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-    }
-
+   
     function subscribe(event) {
       event.preventDefault();
       const email = document.getElementById('email').value;
@@ -772,6 +904,46 @@ function showTab(tabId) {
   }
 }
 </script>
+<script>
+const header = document.querySelector('header');
+const hero = document.querySelector('.hero');
+
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+
+  
+  if (scrollY > 50) {
+    header.classList.add('shrink');
+  } else {
+    header.classList.remove('shrink');
+  }
+
+  
+  if (hero) {
+    const fadeEnd = 400;
+    const opacity = Math.max(0, 1 - scrollY / fadeEnd);
+    hero.style.opacity = opacity;
+    hero.style.transform = `scale(${1 + scrollY / 3000}) translateY(${scrollY / 4}px)`;
+  }
+});
+</script>
+
+<script>
+  const backToTopBtn = document.getElementById("backToTopBtn");
+
+  window.onscroll = function () {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+      backToTopBtn.style.display = "flex";
+    } else {
+      backToTopBtn.style.display = "none";
+    }
+  };
+
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>
+
 
 
 
