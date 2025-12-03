@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Reaction Game — Turbo</title>
+  <style>
+    :root{
+      --yellow:#f4c542;
+      --bg:#0b1324;
+      --card:#0e213f;
+      --muted:#d8d8d8;
+    }
+    html,body{height:100%;margin:0;font-family:Roboto,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+    body{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:radial-gradient(circle at top left,#111827 0%, #0b1324 80%);
+      color:var(--muted);
+      padding:20px;
+    }
+    .wrap{
+      width:100%;
+      max-width:720px;
+      background:linear-gradient(180deg,#0f2042, #0b1a33);
+      border-radius:14px;
+      box-shadow:0 8px 30px rgba(0,0,0,0.6);
+      padding:28px;
+      text-align:center;
+    }
+    h1{color:var(--yellow); margin:0 0 8px; font-size:1.6rem;}
+    p.lead{margin:0 0 18px; color:#e6e6e6;}
+    .game-area{
+      margin:18px auto 24px;
+      width:260px;
+      height:180px;
+      background:linear-gradient(180deg,#0b1a33,#061021);
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      user-select:none;
+      border:3px solid rgba(244,197,66,0.06);
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.6);
+      font-weight:700;
+      color:var(--muted);
+      font-size:1rem;
+      margin-left:auto;
+      margin-right:auto;
+    }
+    .game-area.ready{ background:linear-gradient(180deg,#0b1a33,#061021); color:var(--muted); }
+    .game-area.waiting{ background:#b02e2e; color:#fff; } /* click too early shows red */
+    .game-area.go{ background:#1aa01a; color:#021; font-size:1.6rem; }
+    .stats{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:16px; }
+    .stat{ background:rgba(255,255,255,0.03); padding:8px 12px; border-radius:10px; font-size:0.95rem; }
+    .controls{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+    button {
+      background:transparent;
+      color:var(--yellow);
+      border:1.5px solid var(--yellow);
+      padding:8px 14px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:600;
+      transition:all .15s;
+    }
+    button:hover{ transform:translateY(-3px); box-shadow:0 6px 20px rgba(244,197,66,0.12); }
+    .msg{ margin-top:12px; min-height:20px; color:#fff; font-weight:600; }
+    .back{ position:fixed; left:18px; top:18px; }
+    @media (max-width:420px){
+      .game-area{ width:92%; height:160px; font-size:0.95rem; }
+      .wrap{ padding:18px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="back" href="index.html" title="Back to site">
+    <button aria-label="Back to site">← Back</button>
+  </a>
+
+  <div class="wrap" role="main">
+    <h1>Reaction Test</h1>
+    <p class="lead">Wait for the box to turn green, then click as fast as you can. Don’t click too early!</p>
+
+    <div id="gameArea" class="game-area ready" tabindex="0" role="button" aria-pressed="false" aria-label="Reaction box">
+      Click to start
+    </div>
+
+    <div class="stats">
+      <div class="stat">Last: <span id="last">—</span> ms</div>
+      <div class="stat">Best: <span id="best">—</span> ms</div>
+      <div class="stat">Tries: <span id="tries">0</span></div>
+    </div>
+
+    <div class="controls">
+      <button id="resetBtn">Reset Best</button>
+      <button id="shareBtn">Copy Result</button>
+    </div>
+
+    <div class="msg" id="message" aria-live="polite"></div>
+  </div>
+
+  <script>
+    (function(){
+      const area = document.getElementById('gameArea');
+      const lastEl = document.getElementById('last');
+      const bestEl = document.getElementById('best');
+      const triesEl = document.getElementById('tries');
+      const msg = document.getElementById('message');
+      const resetBtn = document.getElementById('resetBtn');
+      const shareBtn = document.getElementById('shareBtn');
+
+      let state = 'idle'; // idle | waiting | ready | result
+      let startTime = 0;
+      let timeoutId = null;
+      let tries = 0;
+      const BEST_KEY = 'turbo_reaction_best';
+
+      function loadBest(){
+        const b = localStorage.getItem(BEST_KEY);
+        if(b !== null) bestEl.textContent = b;
+        else bestEl.textContent = '—';
+      }
+      function saveBest(ms){
+        const cur = localStorage.getItem(BEST_KEY);
+        if(cur === null || ms < Number(cur)) {
+          localStorage.setItem(BEST_KEY, String(ms));
+          bestEl.textContent = String(ms);
+          return true;
+        }
+        return false;
+      }
+
+      function setMessage(text, danger){
+        msg.textContent = text || '';
+        msg.style.color = danger ? '#ffa3a3' : '#bfffbf';
+      }
+
+      function resetToIdle(){
+        clearTimeout(timeoutId);
+        state = 'idle';
+        area.className = 'game-area ready';
+        area.textContent = 'Click to start';
+        area.setAttribute('aria-pressed', 'false');
+      }
+
+      function startWaiting(){
+        // random delay 1000-3000 ms
+        const delay = 1000 + Math.floor(Math.random()*2000);
+        state = 'waiting';
+        area.className = 'game-area ready';
+        area.textContent = 'Wait for green...';
+        setMessage('');
+        timeoutId = setTimeout(() => {
+          state = 'ready';
+          area.className = 'game-area go';
+          area.textContent = 'CLICK!';
+          startTime = performance.now();
+          area.focus();
+        }, delay);
+      }
+
+      area.addEventListener('click', (e) =>{
+        e.preventDefault();
+        if(state === 'idle'){
+          startWaiting();
+        } else if(state === 'waiting'){
+          // clicked too early
+          clearTimeout(timeoutId);
+          state = 'idle';
+          tries++;
+          triesEl.textContent = String(tries);
+          area.className = 'game-area waiting';
+          area.textContent = 'Too soon!';
+          setMessage('Too soon — wait until it turns green!', true);
+          // flash and reset after short delay
+          setTimeout(resetToIdle, 900);
+        } else if(state === 'ready'){
+          const end = performance.now();
+          const reaction = Math.round(end - startTime);
+          lastEl.textContent = String(reaction);
+          tries++;
+          triesEl.textContent = String(tries);
+          const isBest = saveBest(reaction);
+          setMessage(isBest ? `New best! ${reaction} ms` : `Nice — ${reaction} ms`);
+          state = 'result';
+          area.className = 'game-area ready';
+          area.textContent = 'Click to try again';
+        } else if(state === 'result'){
+          // start again
+          startWaiting();
+        }
+      });
+
+      // keyboard accessibility: space/enter triggers same as click
+      area.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          area.click();
+        }
+      });
+
+      resetBtn.addEventListener('click', () => {
+        localStorage.removeItem(BEST_KEY);
+        bestEl.textContent = '—';
+        setMessage('Best time reset.');
+      });
+
+      shareBtn.addEventListener('click', async () => {
+        const last = lastEl.textContent;
+        const best = bestEl.textContent;
+        if(last === '—') {
+          setMessage('No result to share yet.', true);
+          return;
+        }
+        const text = `My reaction: ${last} ms (best: ${best}) — Turbo Reaction Test`;
+        try {
+          await navigator.clipboard.writeText(text);
+          setMessage('Result copied to clipboard!');
+        } catch(err){
+          // fallback: prompt
+          prompt('Copy your result:', text);
+        }
+      });
+
+      // ensure UI starts in the right state
+      resetToIdle();
+      loadBest();
+
+      // clean up when leaving page (avoid stray timeouts)
+      window.addEventListener('beforeunload', () => clearTimeout(timeoutId));
+    })();
+  </script>
+</body>
+</html>
